@@ -6,56 +6,40 @@
 	<link rel="stylesheet" href="style.css">
 	<script type="text/javascript">
 		
+		var score = 0;
 
-		var answer = parseInt(Math.random() * 100);
-		var tryCount = 0;
-		var maxTryCount = 6;
-
-		function readInt(){
-			return +document.getElementById("userAnswer").value;
-		}
-
-		function write(text){
-			document.getElementById("info").innerHTML = text;
-		}
-
-		function hide(id){
-			document.getElementById(id).style.display = "none";
-		}
-
-		function guess(){
-			tryCount++;
-
-			var userAnswer = readInt();
-			if(userAnswer == answer) {
-				write("<b>Поздравляю, вы угадали!</b>");
-				hide("button");
-				hide("userAnswer");
-			} else if(tryCount >= maxTryCount){
-				write("Вы проиграли<br>Правильный ответ: " + answer);
-				hide("button");
-				hide("userAnswer");
-			}else if (userAnswer > answer) {
-				write("Вы ввели слишком большое число<br>Попробуйте еще раз. Введите число от 1 до 100");
-				
-			} else if (userAnswer < answer) {
-				write("Вы ввели слишком маленькое число<br>Попробуйте еще раз. Введите число от 1 до 100")
+		function checkAnswer(inputId, answers) {
+			var userAnswer = document.getElementById(inputId).value;
+			userAnswer = userAnswer.toLowerCase();
+			for (var i = 0; i < answers.length; i++) {
+				if(userAnswer == answers[i]) {
+					score++;
+					break;
+				}
 			}
+		}
+
+		function checkAnswers() {
+			checkAnswer("userAnswer1", ["сон","сновидение"]);
+			checkAnswer("userAnswer2",["ничего","равны"]);
+			checkAnswer("userAnswer3",["мертвый", "шахматный"]);
+			
+
+			alert("Вы отгадали: " + score + " загадок");
 
 		}
-		
 	</script>
 </head>
 <body >
-<div class="content">
+
 	<div class="header">
 		<a href="index.html">Главная</a> /
-		<a href="puzzle.html">Загадки</a> /
-		<a class="selected" href="#">Угадайка</a> /
+		<a class="selected" href="#">Загадки</a> /
+		<a href="guess.html">Угадайка</a> /
 		<a href="#">Угадайка мультиплеер</a>
 	</div>
 
-	
+<div class="content">	
 <div class="contentWrap">
 	<div class="content">
 		<div class="center">
@@ -64,10 +48,18 @@
 
 				
 				<div class ="box">
-					<p id="info">Угадайте число от 0 до 100</p>
-					<input type="text" id="userAnswer">
+
+					<p>Что можно увидеть с закрытыми глазами?</p>
+					<input type="text" id="userAnswer1">
+
+					<p>Что легче 1 кг ваты или 1 кг железа?</p>
+					<input type="text" id="userAnswer2">
+
+					<p>Какой конь не есть овса?</p>
+					<input type="text" id="userAnswer3">
 					<br>
-					<a href="#" onClick="guess();" id="button">Начать</a>
+
+					<a href="#" onClick="checkAnswers();">Ответить</a>
 
 				</div>
 
